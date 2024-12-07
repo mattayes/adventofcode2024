@@ -49,7 +49,6 @@ func Part2() {
 		return
 	}
 
-	newGrid := make([][]byte, len(grid))
 	var numLoops int
 	for i, row := range route {
 		for j, cell := range row {
@@ -60,17 +59,11 @@ func Part2() {
 				continue
 			}
 
-			for i2, row2 := range grid {
-				if i == i2 {
-					row2 = slices.Clone(row2)
-					row2[j] = obstacle
-				}
-				newGrid[i2] = row2
-			}
-
-			if _, _, isLoop := solve(newGrid, x, y); isLoop {
+			grid[i][j] = obstacle
+			if _, _, isLoop := solve(grid, x, y); isLoop {
 				numLoops++
 			}
+			grid[i][j] = space
 		}
 	}
 
