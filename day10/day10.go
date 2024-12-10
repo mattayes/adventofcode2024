@@ -36,10 +36,6 @@ func Part2() {
 		log.Fatal("no data")
 	}
 
-	for _, row := range grid {
-		fmt.Println(row)
-	}
-
 	var total int
 	for i, row := range grid {
 		for j, cell := range row {
@@ -112,7 +108,7 @@ func Part1() {
 			if cell != 0 {
 				continue // not a trailhead
 			}
-			traverse(grid, trails, i, j, 0)
+			traverse1(grid, trails, i, j, 0)
 			total += len(trails)
 			clear(trails)
 		}
@@ -121,7 +117,7 @@ func Part1() {
 	fmt.Println(total)
 }
 
-func traverse(grid [][]int, hits map[[2]int]struct{}, i, j, elevation int) {
+func traverse1(grid [][]int, hits map[[2]int]struct{}, i, j, elevation int) {
 	if elevation == 9 {
 		hits[[2]int{i, j}] = struct{}{}
 	}
@@ -137,6 +133,6 @@ func traverse(grid [][]int, hits map[[2]int]struct{}, i, j, elevation int) {
 		if next != elevation+1 {
 			continue
 		}
-		traverse(grid, hits, i, j, next)
+		traverse1(grid, hits, i, j, next)
 	}
 }
